@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{fb0ca1de-c501-4e0b-8367-51e8bb3c663c}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>version.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="version.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\B-17.png" />
+    <Content Include="assets\background.png" />
+    <Content Include="assets\colored.png" />
+    <Content Include="assets\colored_2.png" />
+    <Content Include="assets\colored_3.png" />
+    <Content Include="assets\game_screen_back.png" />
+    <Content Include="assets\JU87B2-progress_5.png" />
+    <Content Include="assets\JU87B2-progress_5_1.png" />
+    <Content Include="assets\laser1.png" />
+    <Content Include="assets\main_menu_image.png" />
+    <Content Include="assets\meteorGrey_big1.png" />
+    <Content Include="assets\meteorGrey_big2.png" />
+    <Content Include="assets\meteorGrey_big3.png" />
+    <Content Include="assets\meteorGrey_big4.png" />
+    <Content Include="assets\meteorGrey_med1.png" />
+    <Content Include="assets\meteorGrey_med2.png" />
+    <Content Include="assets\meteorGrey_small1.png" />
+    <Content Include="assets\meteorGrey_small2.png" />
+    <Content Include="assets\meteorGrey_tiny1.png" />
+    <Content Include="assets\meteorGrey_tiny2.png" />
+    <Content Include="assets\player.png" />
+    <Content Include="assets\regularExplosion00.png" />
+    <Content Include="assets\regularExplosion01.png" />
+    <Content Include="assets\regularExplosion02.png" />
+    <Content Include="assets\regularExplosion03.png" />
+    <Content Include="assets\regularExplosion04.png" />
+    <Content Include="assets\regularExplosion05.png" />
+    <Content Include="assets\regularExplosion06.png" />
+    <Content Include="assets\regularExplosion07.png" />
+    <Content Include="assets\regularExplosion08.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="assets" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+</Project>
