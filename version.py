@@ -32,7 +32,7 @@ def draw_shield_bar(surface, x, y, percentage):
     pygame.draw.rect(surface, WHITE, border, 2)  # Dibujar borde de la barra
     
     # Mostrar el porcentaje de vida restante en la barra
-    draw_text(surface, f'{percentage}%', 20, x + BAR_LENGTH + 24, y)
+    draw_text(surface, f'{percentage}%', 14, x + BAR_LENGTH + 21, y)
 
 # Clase para el jugador
 class PlayerPlane(pygame.sprite.Sprite):
