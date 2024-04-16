@@ -1,6 +1,4 @@
-# Importar los módulos necesarios
 import pygame, random
-
 # Definir constantes para el juego
 WIDTH = 420  # Ancho de la pantalla
 HEIGHT = 720  # Alto de la pantalla
@@ -12,13 +10,13 @@ GREEN = (0, 255, 0)  # Color verde en RGB
 pygame.init()
 pygame.mixer.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))  # Crear ventana del juego
-pygame.display.set_caption("Shooter")  # Establecer título de la ventana
+pygame.display.set_caption("FLY FIGHT")  # Establecer título de la ventana
 clock = pygame.time.Clock()  # Crear objeto Clock para controlar FPS
 
 # Función para dibujar texto en la pantalla
 def draw_text(surface, text, size, x, y):
     font = pygame.font.SysFont("serif", size)  # Definir fuente y tamaño de texto
-    text_surface = font.render(text, True, WHITE)  # Renderizar texto en superficie
+    text_surface = font.render(text, True, GREEN)  # Renderizar texto en superficie
     text_rect = text_surface.get_rect()  # Obtener rectángulo del texto
     text_rect.midtop = (x, y)  # Establecer posición del texto
     surface.blit(text_surface, text_rect)  # Dibujar texto en la superficie
@@ -32,6 +30,9 @@ def draw_shield_bar(surface, x, y, percentage):
     fill = pygame.Rect(x, y, fill, BAR_HEIGHT)  # Crear rectángulo lleno de la barra
     pygame.draw.rect(surface, GREEN, fill)  # Dibujar barra llena
     pygame.draw.rect(surface, WHITE, border, 2)  # Dibujar borde de la barra
+    
+    # Mostrar el porcentaje de vida restante en la barra
+    draw_text(surface, f'{percentage}%', 20, x + BAR_LENGTH + 24, y)
 
 # Clase para el jugador
 class PlayerPlane(pygame.sprite.Sprite):
@@ -45,7 +46,8 @@ class PlayerPlane(pygame.sprite.Sprite):
         self.speed_y = 0  # Velocidad vertical inicial
         self.shield = 100  # Valor inicial del escudo del jugador
 
-    def update(self):# Actualizar la posición del jugador en función de las teclas presionadas
+    def update(self):
+        # Actualizar la posición del jugador en función de las teclas presionadas
         self.speed_x = 0  # Reiniciar velocidad horizontal
         self.speed_y = 0  # Reiniciar velocidad vertical
         keystate = pygame.key.get_pressed()  # Obtener estado de teclas
@@ -68,7 +70,8 @@ class PlayerPlane(pygame.sprite.Sprite):
         if self.rect.top < 0:  # Si el jugador sale del borde superior
             self.rect.top = 0  # Mantener al jugador dentro del borde superior
 
-    def shoot(self):# Crear una nueva bala desde la posición del jugador
+    def shoot(self):
+        # Crear una nueva bala desde la posición del jugador
         bullet = Bullet(self.rect.centerx, self.rect.top)  # Crear objeto bala
         all_sprites.add(bullet)  # Agregar bala al grupo de sprites
         bullets.add(bullet)  # Agregar bala al grupo de balas
@@ -85,7 +88,8 @@ class EnemyPlane(pygame.sprite.Sprite):
         self.speedy = random.randrange(1, 10)  # Velocidad vertical aleatoria
         self.speedx = random.randrange(-5, 5)  # Velocidad horizontal aleatoria
 
-    def update(self):# Mover el avion y reiniciar su posición si sale de la pantalla
+    def update(self):
+        # Mover el avion y reiniciar su posición si sale de la pantalla
         self.rect.y += self.speedy  # Mover enemyo hacia abajo
         self.rect.x += self.speedx  # Mover enemyo horizontalmente
         if self.rect.top > HEIGHT + 10 or self.rect.left < -40 or self.rect.right > WIDTH + 40:
@@ -105,7 +109,8 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.centerx = x  # Centrar posición X de la bala
         self.speedy = -10  # Velocidad vertical de la bala
 
-    def update(self):# Mover la bala hacia arriba y eliminarla si sale de la pantalla
+    def update(self):
+        # Mover la bala hacia arriba y eliminarla si sale de la pantalla
         self.rect.y += self.speedy  # Mover bala hacia arriba
         if self.rect.bottom < 0:  # Si la bala sale de la pantalla por arriba
             self.kill()  # Eliminar la bala
@@ -121,7 +126,8 @@ class Explosion(pygame.sprite.Sprite):
         self.last_update = pygame.time.get_ticks()  # Obtener tiempo actual
         self.frame_rate = 50  # Velocidad de la explosión
 
-    def update(self):# Actualizar la animación de la explosión
+    def update(self):
+        # Actualizar la animación de la explosión
         now = pygame.time.get_ticks()  # Obtener tiempo actual
         if now - self.last_update > self.frame_rate:  # Si ha pasado suficiente tiempo
             self.last_update = now  # Actualizar último tiempo
@@ -137,8 +143,14 @@ class Explosion(pygame.sprite.Sprite):
 # Función para mostrar la pantalla de inicio
 def show_go_screen():
     screen.blit(background, [0, 0])  # Dibujar imagen de fondo en la pantalla
-    draw_text(screen, "AVIONES", 65, WIDTH // 2, HEIGHT // 4)  # Dibujar texto "SHOOTER"
-    draw_text(screen, "PRESIONA PARA INICIAR ", 27, WIDTH // 2, HEIGHT // 2)  # Dibujar instrucciones
+    draw_text(screen, "AVIONES", 65, WIDTH // 2, HEIGHT // 8)  # Dibujar texto "SHOOTER"
+    draw_text(screen, "INSTRUCCIONES", 24, WIDTH // 2, HEIGHT // 3)  # Dibujar texto "SHOOTER"
+    draw_text(screen, "MOVERSE = FLECHAS", 24, WIDTH // 2, HEIGHT // 2.4)
+    draw_text(screen, "DISPARAR= SPACE", 24, WIDTH // 2, HEIGHT // 2)
+    pygame.draw.rect(screen, WHITE, (WIDTH // 2 - 50, HEIGHT // 2 + 50, 100, 50))
+    draw_text(screen, "Jugar", 24, WIDTH // 2, HEIGHT // 2.1 + 75)
+    pygame.draw.rect(screen, WHITE, (WIDTH // 2 - 50, HEIGHT // 2 + 120, 100, 50))  # Agregar botón "Salir"
+    draw_text(screen, "Salir", 24, WIDTH // 2, HEIGHT // 2.1 + 145)  # Agregar texto "Salir"
     pygame.display.flip()  # Actualizar pantalla
     waiting = True  # Variable de espera
     while waiting:  # Bucle de espera
@@ -146,8 +158,14 @@ def show_go_screen():
         for event in pygame.event.get():  # Obtener eventos
             if event.type == pygame.QUIT:  # Si se cierra la ventana
                 pygame.quit()  # Cerrar Pygame
-            if event.type == pygame.KEYUP:  # Si se suelta una tecla
-                waiting = False  # Salir del bucle de espera
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                if WIDTH // 2 - 50 <= mouse_pos[0] <= WIDTH // 2 + 50 and HEIGHT // 2 + 50 <= mouse_pos[1] <= HEIGHT // 2 + 100:
+                    waiting = False
+                elif WIDTH // 2 - 50 <= mouse_pos[0] <= WIDTH // 2 + 50 and HEIGHT // 2 + 120 <= mouse_pos[1] <= HEIGHT // 2 + 170:
+                    pygame.quit()  # Cerrar Pygame cuando se presiona "Salir"
+
+
 
 # Lista de imágenes de aviones
 enemy_images = []
