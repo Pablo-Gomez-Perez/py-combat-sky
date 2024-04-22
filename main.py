@@ -64,9 +64,14 @@ def main():
         # checking enemy - player colitions
         hits = pygame.sprite.spritecollide(player, enemies, True)    
         for hit in hits:
+            explosion = Explosion(player.rect.center, explosion_anim)
+            all_sprites.add(explosion)
             player.shield -= 25
             if player.shield <= 0:
                 game_over = True
+                player_explosion = Explosion(player.rect.center, explosion_anim)
+                all_sprites.add(player_explosion)
+                break
                 
 
         # Drawing / Rendering
