@@ -3,9 +3,9 @@ import pygame
 from settings import WHITE, GREEN
 
 
-def draw_text(surface, text, size, x, y):
+def draw_text(surface, text, size, x, y, color = WHITE):
     font = pygame.font.SysFont("serif", size)  # Definir fuente y tamaño de texto
-    text_surface = font.render(text, True, WHITE)  # Renderizar texto en superficie
+    text_surface = font.render(text, True, color)  # Renderizar texto en superficie
     text_rect = text_surface.get_rect()  # Obtener rectángulo del texto
     text_rect.midtop = (x, y)  # Establecer posición del texto
     surface.blit(text_surface, text_rect)  # Dibujar texto en la superficie
