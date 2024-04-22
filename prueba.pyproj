@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{fb0ca1de-c501-4e0b-8367-51e8bb3c663c}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>version.py</StartupFile>
+    <StartupFile>main.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -19,9 +19,34 @@
     <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="game\events.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="game\ui.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="game\utils.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="main.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="game\models.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="scenes\game_screen.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="scenes\menu_screen.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="settings.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="version.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".gitignore" />
     <Content Include="assets\B-17.png" />
     <Content Include="assets\background.png" />
     <Content Include="assets\colored.png" />
@@ -55,6 +80,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets" />
+    <Folder Include="game\" />
+    <Folder Include="scenes\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
 </Project>
