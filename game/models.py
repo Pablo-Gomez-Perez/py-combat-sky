@@ -40,7 +40,9 @@ class PlayerPlane(pygame.sprite.Sprite):
             self.rect.top = 0  # Mantener al jugador dentro del borde superior
 
     def shoot(self, all_sprites, bullets):# Crear una nueva bala desde la posición del jugador
-        bullet = Bullet(self.rect.centerx, self.rect.top)  # Crear objeto bala
+        inclination_factor = 1.25
+        bullet_speed_x = self.speed_x * inclination_factor
+        bullet = Bullet(self.rect.centerx, self.rect.top, bullet_speed_x)  # Crear objeto bala
         all_sprites.add(bullet)  # Agregar bala al grupo de sprites
         bullets.add(bullet)  # Agregar bala al grupo de balas
         
@@ -67,17 +69,19 @@ class EnemyPlane(pygame.sprite.Sprite):
             
 # Clase para las balas
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self, x, y):
+    def __init__(self, x, y, speed_x=0):
         super().__init__()
         self.image = pygame.image.load("assets/laser1.png")  # Cargar imagen de bala
         self.image.set_colorkey(BLACK)  # Establecer color transparente
         self.rect = self.image.get_rect()  # Obtener rectángulo de la imagen
-        self.rect.y = y  # Establecer posición Y de la bala
         self.rect.centerx = x  # Centrar posición X de la bala
+        self.rect.y = y  # Establecer posición Y de la bala
         self.speedy = -10  # Velocidad vertical de la bala
+        self.speedx = speed_x
 
     def update(self):# Mover la bala hacia arriba y eliminarla si sale de la pantalla
         self.rect.y += self.speedy  # Mover bala hacia arriba
+        self.rect.x += self.speedx
         if self.rect.bottom < 0:  # Si la bala sale de la pantalla por arriba
             self.kill()  # Eliminar la bala
             
