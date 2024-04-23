@@ -19,4 +19,5 @@ def draw_shield_bar(surface, x, y, percentage):
     fill = pygame.Rect(x, y, fill, BAR_HEIGHT)  # Crear rectángulo lleno de la barra
     pygame.draw.rect(surface, GREEN, fill)  # Dibujar barra llena
     pygame.draw.rect(surface, WHITE, border, 2)  # Dibujar borde de la barra
+    draw_text(surface, f'{percentage}%', 14, x+BAR_LENGTH+21,y)
 

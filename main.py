@@ -62,7 +62,7 @@ def main():
             enemies.add(enemy)
         
         # checking enemy - player colitions
-        hits = pygame.sprite.spritecollide(player, enemies, True)    
+        hits = pygame.sprite.spritecollide(player, enemies, True, pygame.sprite.collide_mask) 
         for hit in hits:
             explosion = Explosion(player.rect.center, explosion_anim)
             all_sprites.add(explosion)

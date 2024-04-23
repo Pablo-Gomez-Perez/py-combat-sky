@@ -1,5 +1,6 @@
 # this file include all the game entities
 
+from re import I
 import pygame
 import random
 from settings import WIDTH,HEIGHT,BLACK
@@ -15,6 +16,19 @@ class PlayerPlane(pygame.sprite.Sprite):
         self.speed_x = 0  # Velocidad horizontal inicial
         self.speed_y = 0  # Velocidad vertical inicial
         self.shield = 100  # Valor inicial del escudo del jugador
+        self.mask = pygame.mask.from_surface(self.image)
+        self.reduce_collision_area()
+        
+    def reduce_collision_area(self, reduction_persentage = 20):
+        mask_size = self.mask.get_size()
+        
+        for x in range(mask_size[0]):
+            for y in range(mask_size[1]):
+                if(x < reduction_persentage / 100 * mask_size[0] or
+                   x > mask_size[0] * (1 - reduction_persentage / 100) or
+                   y < reduction_persentage / 100 * mask_size[1] or
+                   y > mask_size[1] * (1 - reduction_persentage / 100)):
+                    self.mask.set_at((x,y),0)
 
     def update(self):# Actualizar la posición del jugador en función de las teclas presionadas
         self.speed_x = 0  # Reiniciar velocidad horizontal
